@@ -34,9 +34,9 @@ async def update_qb_options():
         for k in list(qbit_options.keys()):
             if k.startswith("rss"):
                 del qbit_options[k]
-        qbit_options["web_ui_password"] = "mltbmltb"
+        qbit_options["web_ui_password"] = "tghxhunter"
         await TorrentManager.qbittorrent.app.set_preferences(
-            {"web_ui_password": "mltbmltb"},
+            {"web_ui_password": "tghxhunter"},
         )
     else:
         await TorrentManager.qbittorrent.app.set_preferences(qbit_options)
@@ -53,8 +53,8 @@ async def update_aria2_options():
 async def update_nzb_options():
     SabnzbdClient(
         host="http://localhost",  # Update this to the correct host
-        api_key="mltb",  # Ensure this API key is correct
-        port="8070",  # Verify the port
+        api_key="tghx",  # Ensure this API key is correct
+        port="8024",  # Verify the port
     )
 
 
