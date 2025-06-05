@@ -6,6 +6,7 @@ from aiofiles.os import makedirs, remove
 from aiofiles.os import path as aiopath
 from aioshutil import rmtree
 
+from sabnzbdapi import SabnzbdClient
 from tghbot import (
     LOGGER,
     aria2_options,
@@ -14,6 +15,7 @@ from tghbot import (
     drives_names,
     excluded_extensions,
     index_urls,
+    nzb_options,
     qbit_options,
     rss_dict,
     shorteners_list,
