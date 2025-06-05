@@ -14,10 +14,8 @@ from tghbot import (
     drives_names,
     excluded_extensions,
     index_urls,
-    nzb_options,
     qbit_options,
     rss_dict,
-    sabnzbd_client,
     shorteners_list,
     sudo_users,
     user_data,
@@ -53,11 +51,12 @@ async def update_aria2_options():
 
 
 async def update_nzb_options():
-    sabnzbd_client_instance = SabnzbdClient(
+    SabnzbdClient(
         host="http://localhost",  # Update this to the correct host
         api_key="mltb",  # Ensure this API key is correct
-        port="8070",             # Verify the port
+        port="8070",  # Verify the port
     )
+
 
 async def load_settings():
     if not Config.DATABASE_URL:
