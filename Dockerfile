@@ -1,21 +1,12 @@
-FROM ubuntu:22.04
-
-# Install required packages
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-venv \
-    python3-pip \
-    nano \
-    && rm -rf /var/lib/apt/lists/*
+FROM huntingbots2/huntingbots-tghbot:latest
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-COPY extract .
+RUN python3 -m venv tgh_env
 
 COPY requirements.txt .
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN tgh_env/bin/pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
