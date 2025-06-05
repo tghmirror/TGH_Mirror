@@ -34,3 +34,6 @@ uvicorn
 uvloop
 xattr
 yt-dlp[default,curl-cffi]
+aria2p
+pyrofork 
+qbittorrent-api
