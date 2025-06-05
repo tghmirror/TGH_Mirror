@@ -1,5 +1,7 @@
 asyncio
-aiofiles
+aiofiles 
+aioaria2 
+aria2p
 aioshutil
 anytree
 apscheduler
@@ -31,7 +33,5 @@ tenacity
 uvicorn
 uvloop
 xattr
-yt-dlp[default,curl-cffi]
-aria2p
-pyrofork 
+yt-dlp[default,curl-cffi] 
 qbittorrent-api
