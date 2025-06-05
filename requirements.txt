@@ -1,13 +1,13 @@
 asyncio
-aiofiles 
-aioaria2 
-aria2p
+aiofiles
 aioshutil
 anytree
 apscheduler
+aioaria2
 aioqbt
 cloudscraper
 dnspython
+electrogram
 fastapi
 feedparser
 google-api-python-client
@@ -33,5 +33,4 @@ tenacity
 uvicorn
 uvloop
 xattr
-yt-dlp[default,curl-cffi] 
-qbittorrent-api
+yt-dlp[default,curl-cffi]
