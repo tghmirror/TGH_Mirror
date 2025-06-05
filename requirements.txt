@@ -3,11 +3,9 @@ aiofiles
 aioshutil
 anytree
 apscheduler
-aioaria2
 aioqbt
 cloudscraper
 dnspython
-electrogram
 fastapi
 feedparser
 google-api-python-client
