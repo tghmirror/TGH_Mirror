@@ -155,6 +155,6 @@ async def confirm_restart(_, query):
         await gather(proc1.wait(), proc2.wait())
         async with aiopen(".restartmsg", "w") as f:
             await f.write(f"{restart_message.chat.id}\n{restart_message.id}\n")
-        osexecl(executable, executable, "-m", "bot")
+        osexecl(executable, executable, "-m", "tghbot")
     else:
         await delete_message(message)
