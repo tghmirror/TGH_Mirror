@@ -15,7 +15,6 @@ from tghbot import (
     drives_names,
     excluded_extensions,
     index_urls,
-    nzb_options,
     qbit_options,
     rss_dict,
     shorteners_list,
