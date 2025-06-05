@@ -53,9 +53,11 @@ async def update_aria2_options():
 
 
 async def update_nzb_options():
-    no = (await sabnzbd_client.get_config())["config"]["misc"]
-    nzb_options.update(no)
-
+    sabnzbd_client_instance = SabnzbdClient(
+        host="http://localhost",  # Update this to the correct host
+        api_key="mltb",  # Ensure this API key is correct
+        port="8070",             # Verify the port
+    )
 
 async def load_settings():
     if not Config.DATABASE_URL:
