@@ -17,7 +17,8 @@ gunicorn
 httpx
 jinja2
 langcodes
-lxml
+lxml 
+motor
 natsort
 pillow
 psutil
