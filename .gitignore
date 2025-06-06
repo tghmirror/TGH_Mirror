@@ -1,4 +1,4 @@
-tgh_env/*
+tgh-env/*
 config.py
 token.pickle
 rclone.conf
