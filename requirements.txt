@@ -23,7 +23,6 @@ natsort
 pillow
 psutil
 pyshorteners
-python-dotenv
 python-magic
 pytz
 requests
