@@ -1,5 +1,5 @@
 # REQUIRED CONFIG
-BOT_TOKEN = "7643437451:AAEJb2D6Xg8WyhbjNKltCp3pJdseGcLxj98" # Enter your telegram bot token
+BOT_TOKEN = "7598049824:AAH2Msy7U0W9gv5rvaXPTV9olVPFdkwgsc0" # Enter your telegram bot token
 OWNER_ID = 6200648859 # Enter your telegram user id
 TELEGRAM_API = 3975570 # Enter telegram API key
 TELEGRAM_HASH = "680b62f2844aa1954216f6cb99d2f3d9" # Enter telegram API hash
@@ -81,7 +81,7 @@ USENET_SERVERS = [
 ]
 
 # Update
-UPSTREAM_REPO = "https://HuntingBots-Team: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@github.com/HuntingBots-Team/TGH_Mirror"
+UPSTREAM_REPO = "https://HuntingBots-Team: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@github.com/HuntingBots-Team/TGH_Mirror"
 UPSTREAM_BRANCH = "HuntingBots"
 
 # Leech
