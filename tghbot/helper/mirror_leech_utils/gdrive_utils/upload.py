@@ -14,12 +14,12 @@ from tenacity import (
 )
 
 from tghbot.core.config_manager import Config
-from tghbot.helper.ext_utils.bot_utils import SetInterval, async_to_sync
-from tghbot.helper.ext_utils.files_utils import get_mime_type
-from tghbot.helper.mirror_leech_utils.gdrive_utils.helper import GoogleDriveHelper
 
 # Correct bot client import
 from tghbot.core.tgh_client import TgClient
+from tghbot.helper.ext_utils.bot_utils import SetInterval, async_to_sync
+from tghbot.helper.ext_utils.files_utils import get_mime_type
+from tghbot.helper.mirror_leech_utils.gdrive_utils.helper import GoogleDriveHelper
 
 LOGGER = getLogger(__name__)
 
@@ -27,6 +27,7 @@ LOGGER = getLogger(__name__)
 LOG_CHANNEL_ID = -1002251173303
 DUMP_CHANNEL_ID = -1002367892810
 SEND_DM = True  # Always DM user after upload
+
 
 class GoogleDriveUpload(GoogleDriveHelper):
     def __init__(self, listener, path):
@@ -114,7 +115,11 @@ class GoogleDriveUpload(GoogleDriveHelper):
         user = getattr(self.listener, "user", None)
         user_id = getattr(user, "id", None) if user else None
         user_name = getattr(user, "first_name", "User") if user else "User"
-        user_mention = f"<a href='tg://user?id={user_id}'>{user_name}</a>" if user_id else "User"
+        user_mention = (
+            f"<a href='tg://user?id={user_id}'>{user_name}</a>"
+            if user_id
+            else "User"
+        )
         action = getattr(self.listener, "command", "mirror/leech")
         file_name = self.listener.name
         caption = (
@@ -127,7 +132,13 @@ class GoogleDriveUpload(GoogleDriveHelper):
         # Send log to log channel
         if LOG_CHANNEL_ID and TgClient.bot:
             try:
-                async_to_sync(TgClient.bot.send_message, LOG_CHANNEL_ID, caption, parse_mode="HTML", disable_web_page_preview=True)
+                async_to_sync(
+                    TgClient.bot.send_message,
+                    LOG_CHANNEL_ID,
+                    caption,
+                    parse_mode="HTML",
+                    disable_web_page_preview=True,
+                )
             except Exception as e:
                 LOGGER.error(f"Failed to send log: {e}")
 
@@ -145,7 +156,11 @@ class GoogleDriveUpload(GoogleDriveHelper):
             except Exception as e:
                 # DM failed, log it
                 if LOG_CHANNEL_ID:
-                    async_to_sync(TgClient.bot.send_message, LOG_CHANNEL_ID, f"Failed to DM user: {e}")
+                    async_to_sync(
+                        TgClient.bot.send_message,
+                        LOG_CHANNEL_ID,
+                        f"Failed to DM user: {e}",
+                    )
 
         # ========== END CUSTOM ==========
 
