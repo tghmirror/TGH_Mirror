@@ -109,7 +109,7 @@ if DATABASE_URL:
 UPSTREAM_REPO = (
     config_file.get("UPSTREAM_REPO", "")
     or os.getenv("UPSTREAM_REPO", "")
-    or "https://github.com/{repo[-2]}/{repo[-1]}"
+    or "https://github.com/Huntingbots2/TGH_Mirror"
 )
 
 UPSTREAM_BRANCH = (
@@ -125,8 +125,8 @@ if UPSTREAM_REPO:
     update = srun(
         [
             f"git init -q \
-                     && git config --global user.email huntingbots.tg@gmail.com \
-                     && git config --global user.name HuntingBots \
+                     && git config --global user.email e.anastayyar@gmail.com \
+                     && git config --global user.name mltb \
                      && git add . \
                      && git commit -sm update -q \
                      && git remote add origin {UPSTREAM_REPO} \
@@ -142,4 +142,4 @@ if UPSTREAM_REPO:
     else:
         log_error(
             "Something went wrong while updating, check UPSTREAM_REPO if valid or not!",
-        )
+)
