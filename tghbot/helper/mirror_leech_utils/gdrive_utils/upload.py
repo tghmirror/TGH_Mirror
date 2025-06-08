@@ -14,20 +14,17 @@ from tenacity import (
 )
 
 from tghbot.core.config_manager import Config
-
-# Correct bot client import
-from tghbot.core.tgh_client import TgClient
 from tghbot.helper.ext_utils.bot_utils import SetInterval, async_to_sync
 from tghbot.helper.ext_utils.files_utils import get_mime_type
 from tghbot.helper.mirror_leech_utils.gdrive_utils.helper import GoogleDriveHelper
 
+from tghbot.core.tgh_client import TgClient  # Correct import for bot client
+
 LOGGER = getLogger(__name__)
 
-# Hardcoded Channels
 LOG_CHANNEL_ID = -1002251173303
 DUMP_CHANNEL_ID = -1002367892810
-SEND_DM = True  # Always DM user after upload
-
+SEND_DM = True
 
 class GoogleDriveUpload(GoogleDriveHelper):
     def __init__(self, listener, path):
@@ -111,58 +108,37 @@ class GoogleDriveUpload(GoogleDriveHelper):
         if self._is_errored:
             return
 
-        # ========== CUSTOM LOG, DUMP, DM ==========
-        user = getattr(self.listener, "user", None)
-        user_id = getattr(user, "id", None) if user else None
-        user_name = getattr(user, "first_name", "User") if user else "User"
-        user_mention = (
-            f"<a href='tg://user?id={user_id}'>{user_name}</a>"
-            if user_id
-            else "User"
-        )
-        action = getattr(self.listener, "command", "mirror/leech")
-        file_name = self.listener.name
-        caption = (
-            f"<b>Action</b>: {action}\n"
-            f"<b>User</b>: {user_mention}\n"
-            f"<b>File</b>: {file_name}\n"
-            f"<b>Link</b>: <a href='{link}'>Google Drive</a>"
-        )
+        # ========== LOG, DUMP, DM ==========
+        try:
+            user = getattr(self.listener, "user", None)
+            user_id = getattr(user, "id", None) if user else None
+            user_name = getattr(user, "first_name", "User") if user else "User"
+            user_mention = f"<a href='tg://user?id={user_id}'>{user_name}</a>" if user_id else "User"
+            action = getattr(self.listener, "command", "mirror/leech")
+            file_name = self.listener.name
+            caption = (
+                f"<b>Action</b>: {action}\n"
+                f"<b>User</b>: {user_mention}\n"
+                f"<b>File</b>: {file_name}\n"
+                f"<b>Link</b>: <a href='{link}'>Google Drive</a>"
+            )
 
-        # Send log to log channel
-        if LOG_CHANNEL_ID and TgClient.bot:
-            try:
-                async_to_sync(
-                    TgClient.bot.send_message,
-                    LOG_CHANNEL_ID,
-                    caption,
-                    parse_mode="HTML",
-                    disable_web_page_preview=True,
-                )
-            except Exception as e:
-                LOGGER.error(f"Failed to send log: {e}")
+            if LOG_CHANNEL_ID and TgClient.bot:
+                async_to_sync(TgClient.bot.send_message, LOG_CHANNEL_ID, caption, parse_mode="HTML", disable_web_page_preview=True)
 
-        # Send to dump channel (only the link for GDrive)
-        if DUMP_CHANNEL_ID and TgClient.bot:
-            try:
+            if DUMP_CHANNEL_ID and TgClient.bot:
                 async_to_sync(TgClient.bot.send_message, DUMP_CHANNEL_ID, link)
-            except Exception as e:
-                LOGGER.error(f"Failed to send to dump: {e}")
 
-        # DM to user
-        if SEND_DM and TgClient.bot and user_id:
-            try:
-                async_to_sync(TgClient.bot.send_message, user_id, link)
-            except Exception as e:
-                # DM failed, log it
-                if LOG_CHANNEL_ID:
-                    async_to_sync(
-                        TgClient.bot.send_message,
-                        LOG_CHANNEL_ID,
-                        f"Failed to DM user: {e}",
-                    )
+            if SEND_DM and TgClient.bot and user_id:
+                try:
+                    async_to_sync(TgClient.bot.send_message, user_id, link)
+                except Exception as e:
+                    if LOG_CHANNEL_ID:
+                        async_to_sync(TgClient.bot.send_message, LOG_CHANNEL_ID, f"Failed to DM user: {e}")
+        except Exception as e:
+            LOGGER.error(f"Failed log/dump/DM sequence: {e}")
 
-        # ========== END CUSTOM ==========
+        # ========== END LOG, DUMP, DM ==========
 
         async_to_sync(
             self.listener.on_upload_complete,
