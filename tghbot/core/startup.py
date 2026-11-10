@@ -6,6 +6,7 @@ from aiofiles.os import makedirs, remove
 from aiofiles.os import path as aiopath
 from aioshutil import rmtree
 
+from sabnzbdapi import SabnzbdClient
 from tghbot import (
     LOGGER,
     aria2_options,
@@ -14,10 +15,8 @@ from tghbot import (
     drives_names,
     excluded_extensions,
     index_urls,
-    nzb_options,
     qbit_options,
     rss_dict,
-    sabnzbd_client,
     shorteners_list,
     sudo_users,
     user_data,
@@ -36,9 +35,9 @@ async def update_qb_options():
         for k in list(qbit_options.keys()):
             if k.startswith("rss"):
                 del qbit_options[k]
-        qbit_options["web_ui_password"] = "mltbmltb"
+        qbit_options["web_ui_password"] = "tghxhunter"
         await TorrentManager.qbittorrent.app.set_preferences(
-            {"web_ui_password": "mltbmltb"},
+            {"web_ui_password": "tghxhunter"},
         )
     else:
         await TorrentManager.qbittorrent.app.set_preferences(qbit_options)
@@ -53,8 +52,11 @@ async def update_aria2_options():
 
 
 async def update_nzb_options():
-    no = (await sabnzbd_client.get_config())["config"]["misc"]
-    nzb_options.update(no)
+    SabnzbdClient(
+        host="http://localhost",  # Update this to the correct host
+        api_key="tghx",  # Ensure this API key is correct
+        port="8024",  # Verify the port
+    )
 
 
 async def load_settings():

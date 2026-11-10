@@ -1,13 +1,13 @@
 asyncio
-aiofiles
+aiofiles 
+aioaria2 
+aria2p
 aioshutil
 anytree
 apscheduler
-aioaria2
 aioqbt
 cloudscraper
 dnspython
-electrogram
 fastapi
 feedparser
 google-api-python-client
@@ -17,7 +17,7 @@ gunicorn
 httpx
 jinja2
 langcodes
-lxml
+lxml 
 motor
 natsort
 pillow
@@ -25,7 +25,8 @@ psutil
 pyshorteners
 python-dotenv
 python-magic
-pytz
+pytz 
+pyrofork 
 requests
 speedtest-cli
 telegraph
@@ -33,4 +34,5 @@ tenacity
 uvicorn
 uvloop
 xattr
-yt-dlp[default,curl-cffi]
+yt-dlp[default,curl-cffi] 
+qbittorrent-api
